@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+  <li th:if="${applicationUser == null}"><a href="/login">Log In</a></li>
+  <li th:if="${applicationUser == null}"><a href="/sign-up">Sign Up</a></li>
+  <li><a href="/">Home</a></li>
+  <li><a href="/all-users">All Users</a></li>
+  <li th:if="${applicationUser != null}"><a href="/my-feed">Feed</a></li>
+  <li th:if="${applicationUser != null}"><a href="/my-profile">Profile</a></li>
+  <li th:if="${applicationUser != null}"><a href="/logout" th:text="${'Log Out ' + applicationUser.firstName}"></a></li>
+</ul>
+
+</body>
+</html>

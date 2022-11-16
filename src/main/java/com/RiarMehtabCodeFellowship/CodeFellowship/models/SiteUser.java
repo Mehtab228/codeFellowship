@@ -3,11 +3,9 @@ package com.RiarMehtabCodeFellowship.CodeFellowship.models;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class SiteUser implements UserDetails {
@@ -18,6 +16,10 @@ public class SiteUser implements UserDetails {
     private String username;
     private String password;
     private String firstName;
+
+    @OneToMany(mappedBy = "siteUser")
+    List<Post> postList;
+
 
     public SiteUser(String username, String password, String firstName) {
         this.username = username;
@@ -46,29 +48,33 @@ public class SiteUser implements UserDetails {
         return password;
     }
 
+    public List<Post> getPostList() {
+        return postList;
+    }
+
     @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     public void setPassword(String password) {

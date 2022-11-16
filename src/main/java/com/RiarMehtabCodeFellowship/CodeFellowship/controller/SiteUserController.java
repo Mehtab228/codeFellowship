@@ -36,7 +36,14 @@ public class SiteUserController {
             m.addAttribute("username", username);
             m.addAttribute("fName", foundUser.getFirstName());
         }
-        return "index";
+        return "profile";
+    }
+
+    @GetMapping("/profile")
+    public String getMyProfile(Principal p, Model m){
+        SiteUser siteUser = siteUserRepo.findByUsername(p.getName());
+        m.addAttribute("siteUser", siteUser);
+        return "profile.html";
     }
 
 
