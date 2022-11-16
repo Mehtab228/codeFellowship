@@ -114,20 +114,4 @@ public class SiteUserController {
             e.printStackTrace();
         }
     }
-
-
-    // logout
-    // POST
-    // invalidate the session
-
-
-    // secret -> authenticated
-    // GET -> /sauce return html
-    @GetMapping("/sauce")
-    public String getSauce(){
-        return "secret";
-    }
-
-
-
 }
