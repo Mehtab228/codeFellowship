@@ -33,7 +33,6 @@ public class SiteUserController {
     @Autowired
     PostRepository postRepository;
 
-    // Principal == Http session
     @GetMapping("/")
     public String getHomePage(Model m, Principal p){
         if(p != null){
