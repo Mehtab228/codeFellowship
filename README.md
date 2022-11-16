@@ -6,6 +6,7 @@
 - /: This displays the homepage where there are links present to login or signup with redirects to their respective pages. 
 - If the signup is successful it will redirect you to a password protected page with information about the fellowship
 - If you need to signup you will be redirected to a signup page where you need to enter your first name, username and password
+- Users can make posts to their own profile. In addition, they can see all of their friends on their profile page. A user can visit another user's page, but they are not able to edit their friend's posts. 
 - This application requires a local installation of PostgreSQL. Once configuration for your environment is complete, a file called application.properties should be created in your /resources folder. This will look like this:
 
 spring.datasource.url=jdbc:postgresql://localhost:5432/?user=<user>&password=<user>
