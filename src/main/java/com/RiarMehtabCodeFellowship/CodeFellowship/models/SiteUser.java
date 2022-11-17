@@ -5,7 +5,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class SiteUser implements UserDetails {
@@ -20,6 +22,17 @@ public class SiteUser implements UserDetails {
     @OneToMany(mappedBy = "siteUser")
     List<Post> postList;
 
+    @ManyToMany
+    @JoinTable(
+            name = "followers_to_followees",
+            joinColumns = {@JoinColumn(name = "userWhoIsFollowing")},
+            inverseJoinColumns = {@JoinColumn(name = "FollowedUser")}
+    )
+    Set<SiteUser> usersIFollow = new HashSet<>();
+
+    @ManyToMany(mappedBy = "usersIFollow")
+    Set<SiteUser> usersWhoFollowMe = new HashSet<>();
+
 
     public SiteUser(String username, String password, String firstName) {
         this.username = username;
@@ -33,6 +46,15 @@ public class SiteUser implements UserDetails {
     public Long getId() {
         return id;
     }
+
+    public Set<SiteUser> getUsersIFollow() {
+        return usersIFollow;
+    }
+
+    public Set<SiteUser> getUsersWhoFollowMe() {
+        return usersWhoFollowMe;
+    }
+
 
 
     public void setUsername(String username) {

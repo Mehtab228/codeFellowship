@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.ServletException;
@@ -112,5 +113,17 @@ public class SiteUserController {
         } catch (ServletException e) {
             e.printStackTrace();
         }
+    }
+
+    @PutMapping("/follow-user/{id}")
+    public RedirectView followUser(Principal p, @PathVariable Long id){
+        SiteUser userToFollow = siteUserRepo.findById(id).orElseThrow(() -> new RuntimeException("Error retrieving user from the database with an ID of: " + id));
+        SiteUser browsingUser = siteUserRepo.findByUsername(p.getName());
+        if(browsingUser.getUsername().equals(userToFollow.getUsername())){
+            throw new IllegalArgumentException("Can't follow your own account");
+        }
+        browsingUser.getUsersIFollow().add(userToFollow);
+        siteUserRepo.save(browsingUser);
+        return new RedirectView("/users/user/" + id);
     }
 }
